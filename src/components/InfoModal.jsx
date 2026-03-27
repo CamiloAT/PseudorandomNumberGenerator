@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Users, BookOpen } from 'lucide-react';
+import { X, Users, BookOpen, FileText } from 'lucide-react';
 
 export default function InfoModal({ isOpen, onClose }) {
   return (
@@ -66,6 +66,27 @@ export default function InfoModal({ isOpen, onClose }) {
                   </div>
                 </div>
               </div>
+
+              <div>
+                <h3 className="text-xl font-bold flex items-center gap-2 text-slate-200 mb-4">
+                  <FileText className="w-5 h-5 text-emerald-400" /> Documentación y Manuales
+                </h3>
+                <a 
+                  href="https://docs.google.com/document/d/1iZHUzVeRkD2zG4jbmzTSvAfHUOksLigk/edit" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center gap-4 bg-slate-800/50 hover:bg-emerald-500/10 p-5 rounded-xl border border-slate-700/50 hover:border-emerald-500/50 transition-all group"
+                >
+                  <div className="p-3 bg-emerald-500/20 text-emerald-400 rounded-lg group-hover:scale-110 group-hover:rotate-3 transition-transform">
+                    <BookOpen className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h4 className="text-emerald-400 font-bold text-lg group-hover:text-emerald-300 transition-colors">Manual de Usuario</h4>
+                    <p className="text-slate-400 text-sm mt-1">Haz clic aquí para leer la guía completa de uso, características y teoría del proyecto.</p>
+                  </div>
+                </a>
+              </div>
+
             </div>
           </motion.div>
         </motion.div>
