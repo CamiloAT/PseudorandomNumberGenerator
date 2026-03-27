@@ -17,7 +17,7 @@ export default function TransitionScreen() {
         >
            <Settings2 className="w-20 h-20 text-indigo-400 drop-shadow-[0_0_15px_rgba(99,102,241,0.5)]" />
         </motion.div>
-        <div className="text-2xl md:text-4xl font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400 tracking-[0.3em]">
+        <div className="text-2xl md:text-4xl font-black bg-clip-text text-transparent bg-linear-to-r from-indigo-400 to-cyan-400 tracking-[0.3em]">
           INICIALIZANDO...
         </div>
       </motion.div>

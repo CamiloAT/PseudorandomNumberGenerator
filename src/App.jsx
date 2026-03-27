@@ -1,7 +1,8 @@
 ﻿import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Settings2, Play, Hash, Info, HelpCircle } from 'lucide-react';
-import { Joyride, STATUS, EVENTS } from 'react-joyride';
+import { Settings2, Play, Dices, Info, HelpCircle, Spade, Heart, Club, Diamond } from 'lucide-react';
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
 import DataTable from './components/DataTable';
 import StatsDisplay from './components/StatsDisplay';
 import ChartDisplay from './components/ChartDisplay';
@@ -15,77 +16,6 @@ import { chiSquareTest, kolmogorovSmirnovTest, pokerTest } from './utils/tests';
 function App() {
   const [appState, setAppState] = useState('welcome'); // welcome, transition, generator
   const [showInfoModal, setShowInfoModal] = useState(false);
-  const [runTour, setRunTour] = useState(false);
-
-  const tourSteps = [
-    {
-      target: '.tour-config',
-      content: 'Aquí puedes configurar el generador. Selecciona el método que deseas utilizar.',
-      disableBeacon: true,
-      placement: 'right',
-    },
-    {
-      target: '.tour-params',
-      content: 'Ingresa los parámetros necesarios. Estos cambiarán automáticamente según el método que selecciones (semilla, módulo, multiplicador, etc).',
-      disableBeacon: true,
-      placement: 'right',
-    },
-    {
-      target: '.tour-generate',
-      content: '¡Haz clic aquí para generar los números! La aplicación aplicará el método y realizará todas las pruebas estadísticas.',
-      disableBeacon: true,
-      placement: 'right',
-    },
-    {
-      target: '.tour-results',
-      content: 'Una vez generados, aquí aparecerán todos los resultados: medias, varianzas, gráficas de dispersión y las pruebas Chi-Cuadrado, K-S y Poker.',
-      disableBeacon: true,
-      placement: 'left',
-    },
-    {
-      target: '.tour-info',
-      content: 'Si quieres saber quiénes desarrollaron esta aplicación o quieres ver detalles de la materia, haz clic aquí en el botón de Acerca de.',
-      disableBeacon: true,
-      placement: 'bottom',
-    }
-  ];
-
-  const handleJoyrideCallback = (data) => {
-    const { status, type } = data;
-    const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED];
-    
-    if (finishedStatuses.includes(status) || type === EVENTS.TOUR_END) {
-      setRunTour(false);
-    }
-  };
-
-  const CustomTooltip = ({ index, step, skipProps, primaryProps, backProps, tooltipProps, isLastStep }) => (
-    <div {...tooltipProps} className="bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl shadow-black/50 p-5 max-w-sm mr-4 ml-4">
-      <div className="text-slate-200 mb-5 text-sm leading-relaxed">
-        {step.content}
-      </div>
-      <div className="flex items-center justify-between mt-4 border-t border-slate-700/50 pt-4">
-        <div className="flex gap-2 items-center">
-          {!isLastStep && (
-            <button {...skipProps} className="text-xs font-semibold px-2 py-1.5 text-slate-500 hover:text-slate-300 transition-colors">
-              Saltar tour
-            </button>
-          )}
-        </div>
-        <div className="flex gap-2 items-center">
-          {index > 0 && (
-            <button {...backProps} className="text-sm font-medium px-4 py-2 text-slate-300 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors">
-              Atrás
-            </button>
-          )}
-          <button {...primaryProps} className="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-bold py-2 px-4 rounded-lg transition-all shadow-lg shadow-indigo-500/25 active:scale-95">
-            {isLastStep ? 'Terminar' : 'Siguiente'}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-
   const [method, setMethod] = useState('LCG');
   const [params, setParams] = useState({ x0: 554, a: 5, c: 7, m: 16, d: 4, n: 100 });
   const [results, setResults] = useState(null);
@@ -124,50 +54,76 @@ function App() {
     }, 1200);
   };
 
+  const startTour = () => {
+    const driverObj = driver({
+      showProgress: true,
+      nextBtnText: 'Siguiente',
+      prevBtnText: 'Atrás',
+      doneBtnText: 'Terminar',
+      progressText: 'Paso {{current}} de {{total}}',
+      popoverClass: 'driverjs-theme', // We can style it in CSS if we want, or rely on default
+      steps: [
+        {
+          element: '.tour-config',
+          popover: { title: 'Configuración', description: 'Aquí puedes configurar el generador.', side: 'right', align: 'start' }
+        },
+        {
+          element: '.tour-method',
+          popover: { title: 'Método de Generación', description: 'Selecciona el método matemático que deseas utilizar (Congruencial Lineal, Multiplicativo o Cuadrados Medios).', side: 'right', align: 'start' }
+        },
+        {
+          element: '.tour-params',
+          popover: { title: 'Parámetros', description: 'Ingresa los parámetros necesarios. Estos cambiarán automáticamente según el método que selecciones.', side: 'right', align: 'start' }
+        },
+        {
+          element: '.tour-generate',
+          popover: { title: 'Generar', description: '¡Haz clic aquí para generar los números! La aplicación aplicará el método y realizará todas las pruebas estadísticas.', side: 'right', align: 'start' }
+        },
+        {
+          element: '.tour-results',
+          popover: { title: 'Resultados', description: 'Una vez generados, aquí aparecerán todos los resultados: medias, varianzas, gráficas de dispersión y las pruebas Chi-Cuadrado, K-S y Poker.', side: 'left', align: 'start' }
+        },
+        {
+          element: '.tour-info',
+          popover: { title: 'Acerca de', description: 'Si quieres saber quiénes desarrollaron esta aplicación o quieres ver detalles de la materia, haz clic aquí en el botón de Acerca de.', side: 'bottom', align: 'start' }
+        },
+        {
+          element: '.tour-help',
+          popover: { title: 'Repetir Tour', description: 'Siempre que necesites volver a ver este recorrido, puedes presionar este botón.', side: 'bottom', align: 'end' }
+        }
+      ]
+    });
+    driverObj.drive();
+  };
+
   if (appState === 'welcome') return <WelcomeScreen onStart={startApp} />;
   if (appState === 'transition') return <TransitionScreen />;
 
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 font-sans selection:bg-indigo-500 selection:text-white">
-      {runTour && (
-        <Joyride
-          steps={tourSteps}
-          run={true}
-          continuous={true}
-          showSkipButton={true}
-          callback={handleJoyrideCallback}
-          tooltipComponent={CustomTooltip}
-          disableOverlayClose={true}
-          floaterProps={{
-            disableAnimation: true
-          }}
-          styles={{
-            options: {
-              overlayColor: 'rgba(15, 23, 42, 0.85)',
-              zIndex: 1000,
-            }
-          }}
-        />
-      )}
+
 
       <header className="bg-slate-800/50 border-b border-slate-700 p-6 sticky top-0 z-50 backdrop-blur-md">
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-3 bg-indigo-600 rounded-xl shadow-lg shadow-indigo-500/20">
-              <Hash className="w-6 h-6 text-white" />
+            <div className="p-3 bg-indigo-600 rounded-xl shadow-[0_0_15px_rgba(79,70,229,0.5)] flex items-center justify-center">
+              <Settings2 className="w-7 h-7 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">
-                Generador Pseudoaleatorio
+              <h1 className="text-2xl font-black bg-linear-to-r from-indigo-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-md">
+                Laboratorio de Simulación RNG
               </h1>
-              <p className="text-sm text-slate-400">Simulación y Modelos - Modos Múltiples</p>
+              <p className="text-sm text-slate-400 font-medium">Números Pseudoaleatorios y Pruebas</p>
             </div>
           </div>
           
           <div className="flex items-center gap-3">
             {!results && !isGenerating && (
               <button
-                onClick={() => setRunTour(true)}
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  setTimeout(startTour, 100);
+                }}
                 className="tour-help p-3 bg-slate-800 hover:bg-slate-750 border border-slate-700 hover:border-indigo-500 rounded-xl transition-all text-indigo-400 flex items-center justify-center gap-2 font-medium shadow-lg"
                 title="Iniciar Tour Guiado"
               >
@@ -194,8 +150,8 @@ function App() {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-1">Método</label>
-                <select 
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                <select
+                  className="tour-method w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
                   value={method} onChange={(e) => setMethod(e.target.value)}
                 >
                   <option value="LCG">Congruencial Lineal</option>
@@ -242,19 +198,19 @@ function App() {
                 )}
               </div>
 
-              <button 
+              <button
                 onClick={generate}
                 disabled={isGenerating}
                 className="tour-generate w-full mt-4 bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-800 disabled:cursor-not-allowed text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg shadow-indigo-500/25"
               >
                 {isGenerating ? (
                   <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}>
-                    <Hash className="w-5 h-5" />
+                    <Dices className="w-5 h-5" />
                   </motion.div>
                 ) : (
                   <Play className="w-5 h-5 fill-current" />
                 )}
-                {isGenerating ? 'Generando...' : 'Generar'}
+                {isGenerating ? 'Generando...' : 'Generar Números'}
               </button>
             </div>
           </div>
@@ -262,27 +218,55 @@ function App() {
 
         <div className="tour-results xl:col-span-9 space-y-6">
           {isGenerating ? (
-            <div className="h-full min-h-[400px] flex flex-col items-center justify-center text-indigo-400 border-2 border-slate-800 border-dashed rounded-2xl relative overflow-hidden">
-              <motion.div 
-                className="absolute inset-0 bg-indigo-500/10"
-                initial={{ scaleY: 0, transformOrigin: 'bottom' }}
-                animate={{ scaleY: 1 }}
-                transition={{ duration: 1.2, ease: "easeInOut" }}
+            <div className="h-full min-h-100 flex flex-col items-center justify-center text-indigo-400 border-2 border-slate-800 border-dashed rounded-2xl relative overflow-hidden">
+              <motion.div
+                className="absolute inset-0 bg-linear-to-t from-indigo-900/20 to-transparent"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
               />
-              <motion.div animate={{ rotate: 360, scale: [1, 1.2, 1] }} transition={{ repeat: Infinity, duration: 2 }} className="z-10">
-                <Hash className="w-20 h-20 mb-6 drop-shadow-[0_0_15px_rgba(99,102,241,0.5)]" />
-              </motion.div>
-              <motion.p 
-                animate={{ opacity: [0.5, 1, 0.5] }} 
+              <div className="flex gap-4 mb-8 z-10">
+                {[Spade, Heart, Club, Diamond].map((Icon, idx) => (
+                  <motion.div
+                    key={idx}
+                    animate={{ 
+                      rotateY: [0, 180, 360],
+                      y: [0, -20, 0]
+                    }}
+                    transition={{ 
+                      repeat: Infinity, 
+                      duration: 1.5, 
+                      delay: idx * 0.2,
+                      ease: 'easeInOut'
+                    }}
+                    className={`w-16 h-20 rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(99,102,241,0.4)] ${
+                      idx % 2 !== 0 ? 'bg-rose-500/10 text-rose-500 border border-rose-500/30' : 'bg-slate-800 text-slate-300 border border-slate-600'
+                    }`}
+                  >
+                    <Icon className="w-8 h-8" />
+                  </motion.div>
+                ))}
+              </div>
+              <motion.p
+                animate={{ opacity: [0.5, 1, 0.5] }}
                 transition={{ repeat: Infinity, duration: 1.5 }}
-                className="text-2xl font-bold tracking-widest z-10 drop-shadow-[0_0_10px_rgba(99,102,241,0.8)]"
+                className="text-2xl font-bold tracking-[0.2em] z-10 text-indigo-300 drop-shadow-md"
               >
                 GENERANDO NÚMEROS...
               </motion.p>
             </div>
           ) : !results ? (
-            <div className="h-full min-h-[400px] flex flex-col items-center justify-center text-slate-500 border-2 border-slate-800 border-dashed rounded-2xl">
-              <Hash className="w-16 h-16 mb-4 opacity-50" />
+            <div className="h-full min-h-100 flex flex-col items-center justify-center text-slate-500 border-2 border-slate-800 border-dashed rounded-2xl">
+              <div className="relative mb-6">
+                <Dices className="w-20 h-20 opacity-20" />
+                <motion.div
+                  className="absolute -bottom-2 -right-2"
+                  animate={{ rotate: [0, 10, -10, 0] }}
+                  transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
+                >
+                  <Spade className="w-10 h-10 text-indigo-500/40" />
+                </motion.div>
+              </div>
               <p className="text-xl font-medium">Configura los parámetros y presiona Generar</p>
             </div>
           ) : (

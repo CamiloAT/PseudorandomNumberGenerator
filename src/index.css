@@ -75,3 +75,64 @@
   }
 }
 
+/* Custom DriverJS Theme */
+.driver-popover {
+  background-color: #1e293b !important; /* slate-800 */
+  color: #f1f5f9 !important; /* slate-100 */
+  border: 1px solid #334155 !important; /* slate-700 */
+  border-radius: 1rem !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+}
+
+.driver-popover-title {
+  color: #c7d2fe !important; /* slate-200 */
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.driver-popover-description {
+  color: #cbd5e1 !important; /* slate-300 */
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+}
+
+.driver-popover-footer {
+  margin-top: 1rem !important;
+}
+
+.driver-popover-btn-next,
+.driver-popover-btn-prev {
+  background-color: #4f46e5 !important; /* indigo-600 */
+  color: #ffffff !important;
+  border: none !important;
+  text-shadow: none !important;
+  border-radius: 0.5rem !important;
+  padding: 0.5rem 1rem !important;
+  font-weight: 600 !important;
+  transition: background-color 0.2s !important;
+}
+
+.driver-popover-btn-next:hover,
+.driver-popover-btn-prev:hover {
+  background-color: #4338ca !important; /* indigo-500 */
+}
+
+.driver-popover-btn-prev {
+  background-color: #334155 !important; /* slate-700 */
+}
+
+.driver-popover-btn-prev:hover {
+  background-color: #475569 !important; /* slate-600 */
+}
+
+.driver-popover-progress-text {
+  color: #94a3b8 !important; /* slate-400 */
+}
+
+/* Arrow color */
+.driver-popover-arrow-side-left::before { border-left-color: #1e293b !important; }
+.driver-popover-arrow-side-right::before { border-right-color: #1e293b !important; }
+.driver-popover-arrow-side-top::before { border-top-color: #1e293b !important; }
+.driver-popover-arrow-side-bottom::before { border-bottom-color: #1e293b !important; }
+

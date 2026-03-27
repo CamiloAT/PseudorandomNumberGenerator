@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Activity, BarChart2, RefreshCcw } from 'lucide-react';
+import { Activity, BarChart2, RefreshCcw, Info } from 'lucide-react';
 
 export default function StatsDisplay({ statsRi, statsXi, period, n }) {
   const isFullPeriod = period === n;
@@ -68,7 +68,15 @@ export default function StatsDisplay({ statsRi, statsXi, period, n }) {
         className="bg-slate-800 border border-slate-700 p-5 rounded-2xl shadow-lg relative overflow-hidden flex flex-col justify-between"
       >
         <div className="flex justify-between items-start mb-4">
-          <p className="text-sm text-slate-400 font-medium tracking-wider">PERIODO (P)</p>
+          <div className="flex items-center gap-1 relative group cursor-help transition-colors w-max">
+            <p className="text-sm text-slate-400 font-medium tracking-wider group-hover:text-emerald-400 transition-colors">PERIODO (P)</p>
+            <Info className="w-4 h-4 text-slate-500 group-hover:text-emerald-400 transition-colors" />
+            <div className="absolute top-full right-0 md:left-0 mt-2 hidden group-hover:block w-56 bg-slate-800 text-xs text-indigo-50 p-3 rounded-lg shadow-xl shadow-black/50 border border-emerald-500/30 z-[100] whitespace-normal normal-case font-normal text-left pointer-events-none">
+              {isFullPeriod 
+                ? "El generador ha originado todos los valores posibles antes de volver a empezar el ciclo." 
+                : "La secuencia comenzó a repetirse prematuramente, sin agotar todos los valores posibles."}
+            </div>
+          </div>
           <div className="p-2 bg-emerald-500/10 rounded-xl">
             <RefreshCcw className="w-5 h-5 text-emerald-400" />
           </div>
@@ -78,7 +86,7 @@ export default function StatsDisplay({ statsRi, statsXi, period, n }) {
             {period}
           </h3>
           <p className={`text-sm mt-1 font-medium ${isFullPeriod ? 'text-emerald-400' : 'text-amber-400'}`}>
-            {isFullPeriod ? 'Periodo Completo (Ri / Xi)' : 'Periodo Incompleto (Repetición)'}
+            {isFullPeriod ? 'Longitud completa (sin repeticiones)' : 'Ciclo de repeticion detectado'}
           </p>
         </div>
       </motion.div>

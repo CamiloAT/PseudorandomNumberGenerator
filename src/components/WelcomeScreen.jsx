@@ -17,7 +17,7 @@ export default function WelcomeScreen({ onStart }) {
           <Sparkles className="w-24 h-24 text-indigo-400 drop-shadow-[0_0_15px_rgba(99,102,241,0.5)]" />
         </motion.div>
         
-        <h1 className="text-5xl md:text-7xl font-black mb-6 bg-gradient-to-br from-indigo-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent drop-shadow-lg tracking-tight">
+        <h1 className="text-5xl md:text-7xl font-black mb-6 bg-linear-to-br from-indigo-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent drop-shadow-lg tracking-tight">
           Motor de Simulación
         </h1>
         
@@ -29,7 +29,7 @@ export default function WelcomeScreen({ onStart }) {
           whileHover={{ scale: 1.05, boxShadow: "0px 0px 30px rgba(99, 102, 241, 0.5)" }}
           whileTap={{ scale: 0.95 }}
           onClick={onStart}
-          className="bg-gradient-to-r from-indigo-600 to-cyan-600 px-10 py-5 rounded-full text-white font-bold text-xl flex items-center gap-3 transition-all outline-none border border-cyan-400/30 shadow-2xl"
+          className="bg-linear-to-r from-indigo-600 to-cyan-600 px-10 py-5 rounded-full text-white font-bold text-xl flex items-center gap-3 transition-all outline-none border border-cyan-400/30 shadow-2xl"
         >
           <Play className="fill-current w-6 h-6" /> INICIAR ENTORNO
         </motion.button>
