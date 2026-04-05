@@ -1,68 +1,68 @@
-﻿# 🎲 Generador y Analizador de Números Pseudoaleatorios
+﻿# Pseudorandom Number Generator and Analyzer
 
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-📖 **[Ver Manual de Usuario](https://docs.google.com/document/d/1iZHUzVeRkD2zG4jbmzTSvAfHUOksLigk/edit)** 
+**[View User Manual](https://docs.google.com/document/d/1iZHUzVeRkD2zG4jbmzTSvAfHUOksLigk/edit)** 
 
-Una aplicación web moderna e interactiva diseñada para la generación, visualización y evaluación estadística de números pseudoaleatorios. Este proyecto de simulación permite a los usuarios experimentar con diferentes algoritmos de generación matemática y someter los resultados a rigurosas pruebas de uniformidad e independencia.
+A modern and interactive web application designed for the generation, visualization, and statistical evaluation of pseudorandom numbers. This simulation project allows users to experiment with different mathematical generation algorithms and subject the results to rigorous tests of uniformity and independence.
 
 ---
 
-## 🎓 Información del Proyecto
+## Project Information
 
-**Asignatura:** SIMULACIÓN DE COMPUTADORES  
-**Código:** 8108278 | **Grupo:** 2-0  
-**Docente:** Ing. JOSE OSBALDO ROJAS MORENO  
-**Fase:** Proyecto del 1er 50%  
+**Course:** COMPUTER SIMULATION  
+**Code:** 8108278 | **Group:** 2-0  
+**Professor:** Eng. JOSE OSBALDO ROJAS MORENO  
+**Phase:** 1st 50% Project  
 
-### 👨‍💻 Integrantes
-| Nombre | Código | Correo Institucional |
+### Team Members
+| Name | Code | Institutional Email |
 | :--- | :--- | :--- |
 | **Camilo Andres Arias Tenjo** | 202210549 | camilo.arias@uptc.edu.co |
 | **Jose Ortega Luis Castillo** | 202210773 | jose.ortega01@uptc.edu.co |
 
 ---
 
-## ✨ Funcionalidades Principales
+## Main Features
 
-### ⚙️ Generadores de Números
-* **Congruencial Lineal:** Generación mediante la relación de recurrencia lineal clásica.
-* **Congruencial Multiplicativo:** Variante que utiliza un multiplicador puro para secuencias específicas.
-* **Cuadrados Medios:** Método basado en extraer los dígitos centrales del cuadrado de un número semilla.
+### Number Generators
+* **Linear Congruential:** Generation using the classic linear recurrence relation.
+* **Multiplicative Congruential:** Variant that uses a pure multiplier for specific sequences.
+* **Middle Square:** Method based on extracting the middle digits of the square of a seed number.
 
-### 🧪 Pruebas Estadísticas Interactivas
-Cada prueba incluye tooltips educativos informativos (condición de rechazo de $H_0$) y tablas de frecuencia dinámicas.
-* **Prueba de Chi-Cuadrado ($\chi^2$):** Evaluación de la bondad de ajuste mediante conteo empírico por intervalos.
-* **Kolmogorov-Smirnov (K-S):** Análisis de diferencias máximas entre la distribución teórica y la distribución de frecuencias reales.
-* **Prueba de Póker:** Validación de independencia probabilística mediante el análisis de configuraciones de "manos".
+### Interactive Statistical Tests
+Each test includes educational tooltips (rejection condition of $H_0$) and dynamic frequency tables.
+* **Chi-Square Test ($\chi^2$):** Goodness-of-fit evaluation through empirical counting by intervals.
+* **Kolmogorov-Smirnov (K-S):** Analysis of maximum differences between the theoretical distribution and the actual frequency distribution.
+* **Poker Test:** Validation of probabilistic independence through the analysis of "hand" configurations.
 
-### 📊 Panel Gráfico Interactivo (Carrusel)
-Un carrusel animado de 5 dimensiones visuales impulsado por visualizaciones avanzadas en `recharts`:
-1. **Gráfico de Dispersión (Scatter):** Evalúa visualmente la densidad estocástica básica.
-2. **Lag Plot (Gráfico de Retraso):** Ayuda a detectar autocorrelaciones marcando $X_i$ frente a $X_{i+1}$.
-3. **Histograma de Frecuencias:** Corrobora gráficamente la uniformidad esperada en los intervalos (aplanamiento).
-4. **Línea de Tendencia:** Muestra las fluctuaciones macroscópicas a lo largo de las iteraciones.
-5. **Media Acumulada:** Demuestra el teorema del límite central confirmando la convergencia asintótica del promedio hacia $0.5$.
+### Interactive Graphic Panel (Carousel)
+An animated carousel of 5 visual dimensions powered by advanced visualizations in `recharts`:
+1. **Scatter Plot:** Visually evaluates basic stochastic density.
+2. **Lag Plot:** Helps detect autocorrelations by plotting $X_i$ against $X_{i+1}$.
+3. **Frequency Histogram:** Graphically corroborates the expected uniformity in the intervals (flattening).
+4. **Trend Line:** Shows macroscopic fluctuations throughout the iterations.
+5. **Cumulative Mean:** Demonstrates the central limit theorem by confirming the asymptotic convergence of the average towards $0.5$.
 
-### 🎨 UI/UX y Enfoque Educativo
-* Diseño oscuro ("Dark Mode") elegante, utilizando temas condicionales y animaciones fluidas (`framer-motion`).
-* Explicaciones informativas integradas sobre el concepto del **Periodo** de vida útil de un generador (Completos vs Incompletos).
+### UI/UX and Educational Focus
+* Elegant "Dark Mode" design, using conditional themes and fluid animations (`framer-motion`).
+* Built-in informative explanations about the concept of a generator's **Period** (Complete vs Incomplete).
 
 ---
 
-## 🚀 Ejecución y Desarrollo
+## Execution and Development
 
-1. **Instalar dependencias necesarias:**
+1. **Install required dependencies:**
    ```bash
    npm install
    ```
-2. **Ejecutar el entorno en modo desarrollo:**
+2. **Run the environment in development mode:**
    ```bash
    npm run dev
    ```
 
 > [!NOTE]
-> Este proyecto ha sido construido estructurando tecnologías modernas en el Frontend (React, Vite, Tailwind CSS 4) aplicado al cálculo algorítmico y estadístico.
+> This project has been built by structuring modern technologies in the Frontend (React, Vite, Tailwind CSS 4) applied to algorithmic and statistical calculation.
 
